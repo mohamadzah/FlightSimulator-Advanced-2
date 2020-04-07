@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
+using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp.Model
 {
@@ -15,15 +16,24 @@ namespace FlightSimulatorApp.Model
         void disconnect();
         void start();
 
-        //Dashboard properties
-        double heading_deg { get; set; }
-        double vertical_speed { get; set; }
-        double ground_speed { get; set; }
-        double indicated_groundSpeed { get; set; }
-        double airSpeed { get; set; }
-        double gps_altitude { get; set; }
-        double roll_deg { get; set; }
-        double pitch_deg { get; set; }
-        double altimeter { get; set; }
+        //The Model properties
+        Location Location { get; set; }
+
+        double Heading_deg { get; set; }
+        double Vertical_speed { get; set; }
+        double Ground_speed { get; set; }
+        double AirSpeed { get; set; }
+        double Gps_altitude { get; set; }
+        double Roll_deg { get; set; }
+        double Pitch_deg { get; set; }
+        double Altimeter { get; set; }
+        double Longitude_deg { get; set; }
+        double Latitude_deg { get; set; }
+
+        double Throttle { get; set; }
+        double Rudder { get; set; }
+        double Elevator { get; set; }
+        double Aileron { get; set; }
+
     }
 }
