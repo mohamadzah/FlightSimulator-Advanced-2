@@ -52,7 +52,7 @@ namespace FlightSimulatorApp.Model
                 if (this.heading_deg != value)
                 {
                     this.heading_deg = value;
-                    this.NotifyPropertyChanged("Heading_deg");
+                    NotifyPropertyChanged("Heading_deg");
                 }
             }
         }
@@ -65,7 +65,7 @@ namespace FlightSimulatorApp.Model
                 if (this.vertical_speed != value)
                 {
                     this.vertical_speed = value;
-                    this.NotifyPropertyChanged("Vertical_speed");
+                    NotifyPropertyChanged("Vertical_speed");
                 }
             }
         }
@@ -78,7 +78,7 @@ namespace FlightSimulatorApp.Model
                 if (this.ground_speed != value)
                 {
                     this.ground_speed = value;
-                    this.NotifyPropertyChanged("Ground_speed");
+                    NotifyPropertyChanged("Ground_speed");
                 }
             }
         }
@@ -91,7 +91,7 @@ namespace FlightSimulatorApp.Model
                 if (this.airSpeed != value)
                 {
                     this.airSpeed = value;
-                    this.NotifyPropertyChanged("AirSpeed");
+                    NotifyPropertyChanged("AirSpeed");
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace FlightSimulatorApp.Model
                 if (this.gps_altitude != value)
                 {
                     this.gps_altitude = value;
-                    this.NotifyPropertyChanged("Gps_altitude");
+                    NotifyPropertyChanged("Gps_altitude");
                 }
             }
         }
@@ -117,7 +117,7 @@ namespace FlightSimulatorApp.Model
                 if (this.roll_deg != value)
                 {
                     this.roll_deg = value;
-                    this.NotifyPropertyChanged("Roll_deg");
+                    NotifyPropertyChanged("Roll_deg");
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace FlightSimulatorApp.Model
                 if (this.pitch_deg != value)
                 {
                     this.pitch_deg = value;
-                    this.NotifyPropertyChanged("Pitch_deg");
+                    NotifyPropertyChanged("Pitch_deg");
                 }
             }
         }
@@ -143,7 +143,7 @@ namespace FlightSimulatorApp.Model
                 if (this.altimeter != value)
                 {
                     this.altimeter = value;
-                    this.NotifyPropertyChanged("Altimeter");
+                    NotifyPropertyChanged("Altimeter");
                 }
             }
         }
@@ -156,7 +156,7 @@ namespace FlightSimulatorApp.Model
                 if (this.longitude_deg != value)
                 {
                     this.longitude_deg = value;
-                    this.NotifyPropertyChanged("Longitude_deg");
+                    NotifyPropertyChanged("Longitude_deg");
                 }
             }
         }
@@ -169,7 +169,7 @@ namespace FlightSimulatorApp.Model
                 if (this.latitude_deg != value)
                 {
                     this.latitude_deg = value;
-                    this.NotifyPropertyChanged("Latitude_deg");
+                    NotifyPropertyChanged("Latitude_deg");
                 }
             }
         }
@@ -182,7 +182,7 @@ namespace FlightSimulatorApp.Model
                 if (this.throttle != value)
                 {
                     this.throttle = value;
-                    this.NotifyPropertyChanged("Throttle");
+                    telnetClient.write("set /controls/engines/current-engine/throttle " + value + "\n");
                 }
             }
         }
@@ -195,7 +195,7 @@ namespace FlightSimulatorApp.Model
                 if (this.rudder != value)
                 {
                     this.rudder = value;
-                    this.NotifyPropertyChanged("Rudder");
+                    telnetClient.write("set /controls/flight/rudder " + value + "\n");
                 }
             }
         }
@@ -208,7 +208,7 @@ namespace FlightSimulatorApp.Model
                 if (this.elevator != value)
                 {
                     this.elevator = value;
-                    this.NotifyPropertyChanged("Elevator");
+                    telnetClient.write("set /controls/flight/elevator " + value + "\n");
                 }
             }
         }
@@ -221,15 +221,16 @@ namespace FlightSimulatorApp.Model
                 if (this.aileron != value)
                 {
                     this.aileron = value;
-                    this.NotifyPropertyChanged("Aileron");
+                    telnetClient.write("set /controls/flight/aileron " + value + "\n");
                 }
             }
         }
 
-        Location location;
+        private Location location;
         public Location Location
         {
-            get { return this.Location; }
+            //maybe more work here
+            get { return this.location; }
             set
             {
                 this.location = value;
@@ -253,12 +254,46 @@ namespace FlightSimulatorApp.Model
             }
         }
 
+        //need to finish this.
+
         public void start() {
             new Thread(delegate ()
             {
                 while (!stop)
                 {
+                    //as long as the server is not disconnected, keep reading values.
 
+                    telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg");
+                    heading_deg = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /instrumentation/gps/indicated-vertical-speed");
+                    vertical_speed = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt");
+                    ground_speed = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt");
+                    airSpeed = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg");
+                    gps_altitude = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg");
+                    roll_deg = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt");
+                    pitch_deg = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft");
+                    altimeter = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /position/longitude-deg");
+                    longitude_deg = Math.Round(Double.Parse(telnetClient.read()));
+
+                    telnetClient.write("get /position/latitude-deg");
+                    latitude_deg = Math.Round(Double.Parse(telnetClient.read()));
+                    //4 times
+                    Thread.Sleep(250);
                 }
 
             }).Start();

@@ -45,10 +45,10 @@ namespace FlightSimulatorApp.ViewModels
         public double VM_Longitude_deg { get { return model.Longitude_deg; } }
         public double VM_Latitude_deg { get { return model.Latitude_deg; } }
 
-        public double VM_Throttle { get { return model.Throttle; } }
-        public double VM_Rudder { get { return model.Rudder; } }
-        public double VM_Elevator { get { return model.Elevator; } }
-        public double VM_Aileron { get { return model.Aileron; } }
+        public double VM_Throttle { set { model.Throttle = value; } }
+        public double VM_Rudder { set { model.Rudder = value ; } }
+        public double VM_Elevator { set { model.Elevator = value; } }
+        public double VM_Aileron { set { model.Aileron = value; } }
 
         public Location Location { get { return model.Location; } }
     }

@@ -28,7 +28,19 @@ namespace FlightSimulatorApp.Model
 
         public void write(string command)
         {
-            byte[] encodeMsg = Encoding.ASCII.GetBytes(command);
+            byte[] sentBack = new byte[256];
+            byte[] encodedMsg = Encoding.ASCII.GetBytes(command);
+            stream.Write(encodedMsg, 0, encodedMsg.Length);
+            stream.Read(sentBack, 0, 256);
+            Console.WriteLine(Encoding.ASCII.GetString(sentBack, 0, sentBack.Length));
+        }
+
+        public string read()
+        {
+            byte[] sentBack = new byte[256];
+            stream.Read(sentBack, 0, 256);
+            string message = Encoding.ASCII.GetString(sentBack, 0, sentBack.Length);
+            return message;
         }
 
         public void disconnect()
