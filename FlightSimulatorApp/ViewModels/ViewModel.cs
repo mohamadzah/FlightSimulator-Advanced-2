@@ -50,7 +50,7 @@ namespace FlightSimulatorApp.ViewModels
         public double VM_Elevator { set { model.Elevator = value; } }
         public double VM_Aileron { set { model.Aileron = value; } }
 
-        public Location Location { get { return model.Location; } }
+        public Location VM_Location { get { return model.Location; } }
     }
 
     //properties, set get etc..
