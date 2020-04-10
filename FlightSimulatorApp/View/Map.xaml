@@ -3,12 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
       xmlns:local="clr-namespace:FlightSimulatorApp.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Map">
 
     <Grid>
-        
+        <m:Map Mode="AerialWithLabels" Grid.Column="0" ZoomLevel="10" Center="32.0055, 34.8854">
+            <m:Pushpin Location= "{Binding VM_Location}"/>
+        </m:Map>
     </Grid>
 </Page>

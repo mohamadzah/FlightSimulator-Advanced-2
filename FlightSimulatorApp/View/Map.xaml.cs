@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using FlightSimulatorApp.ViewModels;
+using FlightSimulatorApp.Model;
 namespace FlightSimulatorApp.View
 {
     /// <summary>
@@ -20,6 +21,8 @@ namespace FlightSimulatorApp.View
     /// </summary>
     public partial class Map : Page
     {
+        PlaneViewModel pvm;
+
         public Map()
         {
             InitializeComponent();

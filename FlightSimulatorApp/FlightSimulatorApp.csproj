@@ -62,6 +62,9 @@
     <Compile Include="Model\ITelnetClient.cs" />
     <Compile Include="Model\MyModel.cs" />
     <Compile Include="Model\MyTelnetClient.cs" />
+    <Compile Include="ViewModels\DashBoardViewModel.cs" />
+    <Compile Include="ViewModels\ManualViewModel.cs" />
+    <Compile Include="ViewModels\PlaneViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="View\Joystick.xaml.cs">
       <DependentUpon>Joystick.xaml</DependentUpon>

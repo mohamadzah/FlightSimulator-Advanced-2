@@ -15,12 +15,22 @@ namespace FlightSimulatorApp.ViewModels
     class ViewModel : INotifyPropertyChanged
     {
         private IModel model;
+        public ManualViewModel mvm;
+        public PlaneViewModel pvm;
+        public DashBoardViewModel dvm;
+        private int port;
+        private string ip;
 
         public ViewModel(IModel _model) {
             this.model = _model;
+            this.mvm = new ManualViewModel(this.model);
+            this.dvm = new DashBoardViewModel(this.model);
+            this.pvm = new PlaneViewModel(this.model);
+
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,26 +41,34 @@ namespace FlightSimulatorApp.ViewModels
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
+        }   
+
+        public string VM_ip
+        {
+            set
+            {
+                this.ip = value;
+            }
         }
 
-        //View Model Properties
-        public double VM_Heading_deg { get { return model.Heading_deg; }  }
-        public double VM_Vertical_speed { get { return model.Vertical_speed; }  }
-        public double VM_Ground_speed { get { return model.Ground_speed; } }
-        public double VM_AirSpeed { get { return model.AirSpeed;  } }
-        public double VM_Gps_altitude { get { return model.Gps_altitude; } }
-        public double VM_Roll_deg { get { return model.Roll_deg;  } }
-        public double VM_Pitch_deg { get { return model.Pitch_deg;  } }
-        public double VM_Altimeter { get { return model.Altimeter; } }
-        public double VM_Longitude_deg { get { return model.Longitude_deg; } }
-        public double VM_Latitude_deg { get { return model.Latitude_deg; } }
+        public int VM_port
+        {
+            set
+            {
+                this.port = value;
+            }
+        }
 
-        public double VM_Throttle { set { model.Throttle = value; } }
-        public double VM_Rudder { set { model.Rudder = value ; } }
-        public double VM_Elevator { set { model.Elevator = value; } }
-        public double VM_Aileron { set { model.Aileron = value; } }
+        public void Connect()
+        {
+            this.model.connect(ip, port);
+        }
 
-        public Location VM_Location { get { return model.Location; } }
+        public void Disconnect()
+        {
+            this.model.disconnect();
+        }
+
     }
 
     //properties, set get etc..

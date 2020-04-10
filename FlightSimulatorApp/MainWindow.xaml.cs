@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FlightSimulatorApp.ViewModels;
 using FlightSimulatorApp.Model;
+
 namespace FlightSimulatorApp
 {
     /// <summary>
@@ -29,7 +30,6 @@ namespace FlightSimulatorApp
             //binding context.
             DataContext = vm;
             //now once i add properties and the rest of the things, we will bind the properties to the things displayed on the mainwindow.xaml
-
         }
     }
 }

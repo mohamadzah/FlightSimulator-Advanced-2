@@ -34,8 +34,5 @@
         <m:Map Mode="AerialWithLabels" Grid.Column="0" ZoomLevel="11" Center="32.0055, 34.8854" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,0,0,167">
             <m:Pushpin Location= "{Binding VM_Location}"/>
         </m:Map>
-        
-     
-       <Slider x:Name="slider" HorizontalAlignment="Right" Height="20" VerticalAlignment="Center" Grid.Column="4" Margin="0,506,96,10" Grid.Row="1" Width="256" Background="Black" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
