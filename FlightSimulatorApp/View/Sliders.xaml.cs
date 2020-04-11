@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using FlightSimulatorApp.ViewModels;
-using FlightSimulatorApp.Model;
+
 namespace FlightSimulatorApp.View
 {
     /// <summary>
-    /// Interaction logic for Map.xaml
+    /// Interaction logic for Sliders.xaml
     /// </summary>
-    public partial class Map : Page
+    public partial class Sliders : Page
     {
-        public Map()
+        public Sliders()
         {
             InitializeComponent();
         }
