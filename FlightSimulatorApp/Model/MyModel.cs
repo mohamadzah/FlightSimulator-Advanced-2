@@ -12,7 +12,7 @@ namespace FlightSimulatorApp.Model
     class MyModel : IModel
     {
         ITelnetClient telnetClient;
-        volatile Boolean stop;
+        public bool stop;
 
         //Implement INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -54,6 +54,15 @@ namespace FlightSimulatorApp.Model
                     this.heading_deg = value;
                     NotifyPropertyChanged("Heading_deg");
                 }
+            }
+        }
+
+        public bool Stop
+        {
+            get { return this.stop; }
+            set
+            {
+                this.stop = value;
             }
         }
 

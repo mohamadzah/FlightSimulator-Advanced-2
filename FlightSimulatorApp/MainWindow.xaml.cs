@@ -22,37 +22,25 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        ViewModel vm;
-        public MainWindow()
+        private IModel ml;
+
+        public MainWindow(IModel _ml)
         {
+            this.ml = _ml;
             InitializeComponent();
-            vm = new ViewModel(new MyModel(new MyTelnetClient()));
-            //binding context.
-            DataContext = vm;
-            dashboard.DataContext = vm.dvm;
-            map.DataContext = vm.pvm;
-            joystick.DataContext = vm.mvm;
-            sliders.DataContext = vm.mvm;
-
-            vm.VM_port = 5402;
-            vm.VM_ip = "127.0.0.1";
-
-            Console.WriteLine("lolfsdfds");
-            //now once i add properties and the rest of the things, we will bind the properties to the things displayed on the mainwindow.xaml
-            try
-            {
-                this.vm.Connect();
-                Console.WriteLine("Connected!");
-            }
-            catch
-            {
-                Console.WriteLine("lol");
-            }
         }
 
         private void sliders_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void disconnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            ml.disconnect();
+            Home main = new Home();
+            main.Show();
+            Close();
         }
     }
 }
