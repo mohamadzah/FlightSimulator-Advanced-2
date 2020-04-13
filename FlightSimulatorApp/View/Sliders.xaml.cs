@@ -12,17 +12,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FlightSimulatorApp.ViewModels;
 
 namespace FlightSimulatorApp.View
 {
     /// <summary>
     /// Interaction logic for Sliders.xaml
     /// </summary>
-    public partial class Sliders : Page
+    public partial class Sliders : UserControl
     {
         public Sliders()
         {
             InitializeComponent();
+        }
+
+        private void throttleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        { 
+            
+        }
+
+        private void aileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            aileronText.Text = aileronSlider.Value.ToString();
         }
     }
 }

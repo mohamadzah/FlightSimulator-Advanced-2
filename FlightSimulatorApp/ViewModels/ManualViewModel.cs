@@ -36,5 +36,7 @@ namespace FlightSimulatorApp.ViewModels
         public double VM_Elevator { set { model.Elevator = value; } }
         public double VM_Aileron { set { model.Aileron = value; } }
 
+        //joystick x,y positions.
+
     }
 }

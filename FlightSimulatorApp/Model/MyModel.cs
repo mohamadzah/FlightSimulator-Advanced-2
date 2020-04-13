@@ -263,34 +263,34 @@ namespace FlightSimulatorApp.Model
                 {
                     //as long as the server is not disconnected, keep reading values.
 
-                    telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg");
+                    telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\n");
                     heading_deg = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /instrumentation/gps/indicated-vertical-speed");
+                    telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\n");
                     vertical_speed = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt");
+                    telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\n");
                     ground_speed = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt");
+                    telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
                     airSpeed = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg");
+                    telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\n");
                     gps_altitude = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg");
+                    telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
                     roll_deg = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt");
+                    telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\n");
                     pitch_deg = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft");
+                    telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\n");
                     altimeter = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /position/longitude-deg");
+                    telnetClient.write("get /position/longitude-deg\n");
                     longitude_deg = Math.Round(Double.Parse(telnetClient.read()));
 
-                    telnetClient.write("get /position/latitude-deg");
+                    telnetClient.write("get /position/latitude-deg\n");
                     latitude_deg = Math.Round(Double.Parse(telnetClient.read()));
                     //4 times
                     Thread.Sleep(250);

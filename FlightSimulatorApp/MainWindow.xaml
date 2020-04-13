@@ -7,32 +7,33 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         xmlns:view="clr-namespace:FlightSimulatorApp.View"
+        xmlns:viewmodels="clr-namespace:FlightSimulatorApp.ViewModels"
         mc:Ignorable="d"
-        Title="Flight Simulator" Height="659.436" Width="1137.338" WindowStartupLocation="CenterScreen">
+        Title="Flight Simulator" Height="938.21" Width="1339.697" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0"/>
             <GradientStop Color="White" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+
+    <Grid Margin="0,0,0,1">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4.726"/>
-            <ColumnDefinition Width="695.274"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="321*"/>
-            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+        <Grid HorizontalAlignment="Left" Height="100" Margin="483,315,0,0" VerticalAlignment="Top" Width="100" DataContext="ManualViewModel" />
 
-        <StackPanel Grid.Row= "1" Grid.ColumnSpan="2"/>
+        <view:Joystick x:Name="joystick" RenderTransformOrigin="0.501,0.499" Margin="800,214,-66,55">
+        </view:Joystick>
+        
+        <view:Map x:Name="map" Margin="2,2,567,385">
+        </view:Map>
 
-        <m:Map Mode="AerialWithLabels" Grid.Column="0" ZoomLevel="11" Center="32.0055, 34.8854" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,0,0,167">
-            <m:Pushpin Location= "{Binding VM_Location}"/>
-        </m:Map>
+        <view:Dashboard x:Name="dashboard" Margin="6,535,1049,58" DataContext="DashBoardViewModel">
+        </view:Dashboard>
+
+        <view:Sliders x:Name="sliders" Loaded="sliders_Loaded" Margin="548,78,-681,-285">
+        </view:Sliders>
+
     </Grid>
 </Window>
