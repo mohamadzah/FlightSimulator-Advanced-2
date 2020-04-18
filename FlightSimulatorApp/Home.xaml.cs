@@ -21,13 +21,20 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class Home : Window
     {
+        // APP STARTUP
         private IModel model;
         ViewModel vm;
+        ManualViewModel mvm;
+        PlaneViewModel pvm;
+        DashBoardViewModel dvm;
         public Home()
         {
             InitializeComponent();
             model = new MyModel(new MyTelnetClient());
             vm = new ViewModel(this.model);
+            this.mvm = new ManualViewModel(this.model);
+            this.dvm = new DashBoardViewModel(this.model);
+            this.pvm = new PlaneViewModel(this.model);
             //binding context.
             DataContext = vm;
 
@@ -36,24 +43,44 @@ namespace FlightSimulatorApp
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow main = new MainWindow(model);
-            main.dashboard.DataContext = vm.dvm;
-            main.map.DataContext = vm.pvm;
-            main.joystick.DataContext = vm.mvm;
-            main.sliders.DataContext = vm.mvm;
+            main.dashboard.DataContext = this.dvm;
+            main.map.DataContext = this.pvm;
+            main.joystick.DataContext = this.mvm;
+            main.sliders.DataContext = this.mvm;
 
-            vm.VM_port = 5402;
-            vm.VM_ip = "127.0.0.1";
+            vm.VM_ip = ipText.Text;
 
-            try
+            int val;
+            if (portText.Text == "" || ipText.Text == "")
             {
-                this.vm.Connect();
-                main.Show();
-                this.Close();
+                MessageBox.Show("You need to fill the fields!");
             }
-            catch
+            else if (!int.TryParse(portText.Text, out val))
             {
-                Console.WriteLine("lol");
+                MessageBox.Show("You need to fill a valid numeric port value!");
             }
+
+            else
+            {
+                vm.VM_port = int.Parse(portText.Text);
+
+                try
+                {
+                    this.vm.Connect();
+                    main.Show();
+                    this.Close();
+                }
+                catch
+                {
+                    Console.WriteLine("Error with connection!");
+                }
+            }
+          
+        }
+
+        private void exitButton_Click_1(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }

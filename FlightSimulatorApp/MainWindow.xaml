@@ -18,6 +18,9 @@
     </Window.Background>
 
     <Grid Margin="0,0,0,1">
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>

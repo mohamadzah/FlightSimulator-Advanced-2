@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulatorApp"
         mc:Ignorable="d"
-        Title="Home - Flight Simulator" Height="450" Width="800">
+        Title="Home - Flight Simulator" Height="480" Width="905">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="254415.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="1307274.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
-        <Button x:Name="connectButton" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="250,309,0,0" Height="62" FontSize="20" Click="connectButton_Click">
+        <Button x:Name="connectButton" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="21,10,0,0" Height="62" FontSize="20" Click="connectButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -18,7 +18,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="424,309,0,0" Height="62" FontSize="20">
+        
+        <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="761,10,0,0" Height="62" FontSize="20" RenderTransformOrigin="1.286,0.565" Click="exitButton_Click_1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -26,6 +27,14 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
+        
+        <TextBox x:Name="ipText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="120" Margin="227,47,0,0"/>
+        
+        <Label x:Name="label" Content="Fill IP Address and Port to in order to connect" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="280,6,0,0" Width="297" FontSize="14"/>
+        <TextBox x:Name="portText" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="5402" VerticalAlignment="Top" Width="120" Margin="531,45,0,0" RenderTransformOrigin="1.175,0.565"/>
+        
+        <Label x:Name="ipLabel" Content="IP Address" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,43,0,0" Width="76" FontSize="14"/>
+        <Label x:Name="portLabel" Content="Port" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="483,43,0,0" Width="52" FontSize="14"/>
 
     </Grid>
 </Window>

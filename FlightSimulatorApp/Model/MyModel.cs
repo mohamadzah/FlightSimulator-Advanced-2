@@ -287,11 +287,13 @@ namespace FlightSimulatorApp.Model
             new Thread(delegate ()
             {
                 string lol = String.Empty;
+                int flag = 0;
                 while (!stop)
                 {
-                    mutex.WaitOne();
+                    flag = 0; 
                     //as long as the server is not disconnected, keep reading values.
 
+                    mutex.WaitOne();
                     telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\n");
                     lol = telnetClient.read();
                    // Console.WriteLine(lol);
@@ -320,7 +322,7 @@ namespace FlightSimulatorApp.Model
                         Ground_speed = Double.Parse(lol);
 
                     }
-                    //   Ground_speed = Double.Parse(telnetClient.read());
+               
                     mutex.ReleaseMutex();
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
@@ -332,7 +334,7 @@ namespace FlightSimulatorApp.Model
                         AirSpeed = Double.Parse(lol);
                     }
 
-                    //   AirSpeed = Double.Parse(telnetClient.read());
+            
                     mutex.ReleaseMutex();
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\n");
@@ -344,7 +346,7 @@ namespace FlightSimulatorApp.Model
                             Gps_altitude = Double.Parse(lol);
                         
                     }
-                    //    Gps_altitude = Double.Parse(telnetClient.read());
+   
                     mutex.ReleaseMutex();
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\n");
@@ -356,7 +358,7 @@ namespace FlightSimulatorApp.Model
                             Roll_deg = Double.Parse(lol);
                         
                     }
-                    //   Roll_deg = Double.Parse(telnetClient.read());
+
                     mutex.ReleaseMutex();
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
@@ -368,7 +370,7 @@ namespace FlightSimulatorApp.Model
                             Pitch_deg = Double.Parse(lol);
                         
                     }
-                    //    Pitch_deg = Double.Parse(telnetClient.read());
+
                     mutex.ReleaseMutex();
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\n");
@@ -380,7 +382,7 @@ namespace FlightSimulatorApp.Model
                             Altimeter = Double.Parse(lol);
                         
                     }
-                    //  Altimeter = Double.Parse(telnetClient.read());
+  
                     mutex.ReleaseMutex();
                     mutex.WaitOne();
                     telnetClient.write("get /position/longitude-deg\n");
@@ -388,21 +390,24 @@ namespace FlightSimulatorApp.Model
                   //  Console.WriteLine(lol);
                     if (!lol.Contains("ERR"))
                     {
-                        
-                           Longitude_deg = Double.Parse(lol);
-                        
+                        flag = 1;
+                           Longitude_deg = Double.Parse(lol);                      
                     }
-                    //   Longitude_deg = Double.Parse(telnetClient.read());
+
                     mutex.ReleaseMutex();
                     mutex.WaitOne();
                     telnetClient.write("get /position/latitude-deg\n");
                     lol = telnetClient.read();
-                   // Console.WriteLine(lol);
+
                     if (!lol.Contains("ERR"))
                     {
                         Latitude_deg = Double.Parse(lol);
+                        if (flag == 1)
+                        {
+                            Location = new Location(Latitude_deg, Longitude_deg);
+                        }
                     }
-                    // Latitude_deg = Double.Parse(telnetClient.read());
+
                     mutex.ReleaseMutex();
                     //4 times        
 
@@ -418,12 +423,16 @@ namespace FlightSimulatorApp.Model
                     if (setQueue.Count != 0)
                     {
                         mutex.WaitOne();
-                        telnetClient.write(setQueue.Dequeue());
+                        string messageSend = setQueue.Dequeue();
+                        Console.WriteLine(messageSend);
+                        telnetClient.write(messageSend);
                         Console.WriteLine("Message recieve :");
                         string r = telnetClient.read();
                         mutex.ReleaseMutex();
                         Console.WriteLine(r);
-                    }                   
+                    }
+
+                    Thread.Sleep(10);
                 }
             }).Start();
         }

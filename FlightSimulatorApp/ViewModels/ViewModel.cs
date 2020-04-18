@@ -15,18 +15,11 @@ namespace FlightSimulatorApp.ViewModels
     class ViewModel : INotifyPropertyChanged
     {
         private IModel model;
-        public ManualViewModel mvm;
-        public PlaneViewModel pvm;
-        public DashBoardViewModel dvm;
         private int port;
         private string ip;
 
         public ViewModel(IModel _model) {
             this.model = _model;
-            this.mvm = new ManualViewModel(this.model);
-            this.dvm = new DashBoardViewModel(this.model);
-            this.pvm = new PlaneViewModel(this.model);
-
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
