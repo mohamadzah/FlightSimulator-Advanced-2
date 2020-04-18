@@ -20,9 +20,10 @@ namespace FlightSimulatorApp.Model
             {
                 tcp.Connect(ip, port);
                 stream = tcp.GetStream();
+                stream.ReadTimeout = 10000;
             }
 
-            catch(Exception ex)
+            catch(Exception)
             {
                 Console.WriteLine("Could not connect!");
             }
@@ -30,25 +31,16 @@ namespace FlightSimulatorApp.Model
 
         public void write(string command)
         {
-
-            byte[] sentBack = new byte[256];
-            byte[] encodedMsg = Encoding.ASCII.GetBytes(command);
-            mutex.WaitOne();
-            tcp.GetStream().Write(encodedMsg, 0, encodedMsg.Length);
-            tcp.GetStream().Read(sentBack, 0, 256);
-            Console.WriteLine(Encoding.ASCII.GetString(sentBack, 0, sentBack.Length));
-            mutex.ReleaseMutex();
+            Byte[] encodedMsg = Encoding.ASCII.GetBytes(command);
+            stream.Write(encodedMsg, 0, encodedMsg.Length);
         }
 
         public string read()
         {
-            byte[] sentBack = new byte[256];
-            mutex.WaitOne();
-            tcp.GetStream().Read(sentBack, 0, 256);
-            string message = Encoding.ASCII.GetString(sentBack, 0, sentBack.Length);
-            mutex.ReleaseMutex();
+            Byte[] sentBack = new Byte[256];
+            int len = stream.Read(sentBack, 0, sentBack.Length);
+            string message = Encoding.ASCII.GetString(sentBack, 0, len);
             return message;
-
         }
 
         public void disconnect()

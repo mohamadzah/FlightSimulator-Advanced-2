@@ -53,6 +53,8 @@ namespace FlightSimulatorApp.View
         private void centerKnob_Completed(object sender, EventArgs e)
         {
             myBoard.Stop();
+            knobPosition.X = 0;
+            knobPosition.Y = 0;
         }
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)

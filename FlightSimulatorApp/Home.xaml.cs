@@ -21,7 +21,6 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class Home : Window
     {
-
         private IModel model;
         ViewModel vm;
         public Home()
@@ -48,7 +47,6 @@ namespace FlightSimulatorApp
             try
             {
                 this.vm.Connect();
-                Console.WriteLine("Connected!");
                 main.Show();
                 this.Close();
             }

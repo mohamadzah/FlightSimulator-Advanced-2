@@ -7,12 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="0,0,0,-658">
+        
         <Slider x:Name="throttleSlider" HorizontalAlignment="Left" VerticalAlignment="Center" Minimum="0" Maximum="1" TickFrequency="0.1" ValueChanged="throttleSlider_ValueChanged" Height="320" Margin="246,20,0,768"
-                TickPlacement="Both" Orientation="Vertical" Width="47" Foreground="BlueViolet" Value="{Binding VM_Throttle, Mode=OneWayToSource}"/>
+                TickPlacement="Both" Orientation="Vertical" Width="47" Foreground="BlueViolet" Value="{Binding VM_Throttle}"/>
 
         <Slider x:Name="aileronSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Minimum="-1" Maximum="1" TickFrequency="0.1" ValueChanged="aileronSlider_ValueChanged" Height="36" Margin="317,667,0,0"
-                TickPlacement="Both" Orientation="Horizontal" Width="449" Foreground="BlueViolet" Value="{Binding VM_Aileron, Mode=OneWayToSource}"/>
-        
-        <TextBlock x:Name="aileronText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Margin="465,9,0,0" Width="166" FontSize="20"/>
+                TickPlacement="Both" Orientation="Horizontal" Width="449" Foreground="BlueViolet" Value="{Binding VM_Aileron}"/>
+
+        <TextBlock x:Name="aileronText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Aileron, StringFormat=0.0#}" VerticalAlignment="Top" Margin="465,9,0,0" Width="166" FontSize="20"/>
+
+        <TextBlock x:Name="rudderText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Rudder, StringFormat=0.0#}" VerticalAlignment="Top" Margin="465,111,0,0" Width="166" FontSize="20"/>
+
+        <TextBlock x:Name="throttleText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Throttle, StringFormat=0.0#}" VerticalAlignment="Top" Margin="465,191,0,0" Width="166" FontSize="20"/>
+
+        <TextBlock x:Name="elevatorText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Elevator, StringFormat=0.0#}" VerticalAlignment="Top" Margin="465,151,0,0" Width="166" FontSize="20"/>
+
     </Grid>
 </UserControl>

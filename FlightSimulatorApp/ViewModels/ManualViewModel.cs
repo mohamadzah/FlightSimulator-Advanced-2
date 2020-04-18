@@ -9,7 +9,7 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp.ViewModels
 {
-    class ManualViewModel
+    class ManualViewModel 
     {
         private IModel model;
 
@@ -31,10 +31,10 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
 
-        public double VM_Throttle { set { model.Throttle = value; } }
-        public double VM_Rudder { set { model.Rudder = value; } }
-        public double VM_Elevator { set { model.Elevator = value; } }
-        public double VM_Aileron { set { model.Aileron = value; } }
+        public double VM_Throttle { set { model.Throttle = value; } get { return model.Throttle; } }
+        public double VM_Rudder { set { model.Rudder = value; } get { return model.Rudder; } }
+        public double VM_Elevator { set { model.Elevator = value; } get { return model.Elevator; } }
+        public double VM_Aileron { set { model.Aileron = value; } get { return model.Aileron; } }
 
         //joystick x,y positions.
 

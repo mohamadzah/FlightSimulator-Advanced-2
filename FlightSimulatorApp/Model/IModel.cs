@@ -15,7 +15,8 @@ namespace FlightSimulatorApp.Model
         void connect(string ip, int port);
         void disconnect();
         void start();
-
+        void EnqueueMsg(double val, string message);
+        
         //The Model properties
         Location Location { get; set; }
 

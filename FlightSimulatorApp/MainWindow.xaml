@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
         <Grid HorizontalAlignment="Left" Height="100" Margin="483,315,0,0" VerticalAlignment="Top" Width="100" DataContext="ManualViewModel" />
 
-        <view:Joystick x:Name="joystick" RenderTransformOrigin="0.501,0.499" Margin="800,214,-66,55">
+        <view:Joystick x:Name="joystick" RenderTransformOrigin="0.501,0.499" Margin="800,214,-66,55" Rudder="{Binding VM_Rudder, Mode=TwoWay}" Elevator="{Binding VM_Elevator, Mode=TwoWay}">
         </view:Joystick>
 
         <view:Map x:Name="map" Margin="2,2,567,385">

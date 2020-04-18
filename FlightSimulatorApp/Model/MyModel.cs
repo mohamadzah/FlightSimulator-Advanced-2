@@ -12,8 +12,9 @@ namespace FlightSimulatorApp.Model
     class MyModel : IModel
     {
         ITelnetClient telnetClient;
-        public bool stop;
-
+        public volatile Boolean stop = false;
+        private Mutex mutex = new Mutex();
+        private Queue<string> setQueue;
         //Implement INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,6 +28,7 @@ namespace FlightSimulatorApp.Model
 
         public MyModel(ITelnetClient _telnetClient) {
             this.telnetClient = _telnetClient;
+            setQueue = new Queue<string>();
         }
 
         private double heading_deg;
@@ -54,15 +56,6 @@ namespace FlightSimulatorApp.Model
                     this.heading_deg = value;
                     NotifyPropertyChanged("Heading_deg");
                 }
-            }
-        }
-
-        public bool Stop
-        {
-            get { return this.stop; }
-            set
-            {
-                this.stop = value;
             }
         }
 
@@ -191,20 +184,30 @@ namespace FlightSimulatorApp.Model
                 if (this.throttle != value)
                 {
                     this.throttle = value;
-                    telnetClient.write("set /controls/engines/current-engine/throttle " + value + "\n");
+                    //mutex.WaitOne();
+                    //Console.WriteLine(value);
+                    //telnetClient.write("set /controls/engines/current-engine/throttle " + value.ToString() + "\n");
+                    //telnetClient.read();
+                    //mutex.ReleaseMutex();
+                    this.setQueue.Enqueue("set /controls/engines/current-engine/throttle " + value + "\n");
                 }
             }
         }
 
         public double Rudder
         {
-            get { return this.Rudder; }
+            get { return this.rudder; }
             set
             {
                 if (this.rudder != value)
                 {
                     this.rudder = value;
-                    telnetClient.write("set /controls/flight/rudder " + value + "\n");
+                    //mutex.WaitOne();
+                    //Console.WriteLine(value);
+                    //telnetClient.write("set /controls/flight/rudder " + value.ToString() + "\n");
+                    //telnetClient.read();
+                    //mutex.ReleaseMutex();
+                    this.setQueue.Enqueue("set /controls/flight/rudder " + value + "\n");
                 }
             }
         }
@@ -217,7 +220,12 @@ namespace FlightSimulatorApp.Model
                 if (this.elevator != value)
                 {
                     this.elevator = value;
-                    telnetClient.write("set /controls/flight/elevator " + value + "\n");
+                    //mutex.WaitOne();
+                    //Console.WriteLine(value);
+                    //telnetClient.write("set /controls/flight/elevator " + value.ToString() + "\n");
+                    //telnetClient.read();
+                    //mutex.ReleaseMutex();
+                    this.setQueue.Enqueue("set /controls/flight/elevator " + value + "\n");
                 }
             }
         }
@@ -230,7 +238,12 @@ namespace FlightSimulatorApp.Model
                 if (this.aileron != value)
                 {
                     this.aileron = value;
-                    telnetClient.write("set /controls/flight/aileron " + value + "\n");
+                    //mutex.WaitOne();
+                    //Console.WriteLine(value);
+                    //telnetClient.write("set /controls/flight/aileron " + value.ToString() + "\n");
+                    //telnetClient.read();
+                    //mutex.ReleaseMutex();
+                    this.setQueue.Enqueue("set /controls/flight/aileron " + value + "\n");
                 }
             }
         }
@@ -248,63 +261,170 @@ namespace FlightSimulatorApp.Model
         }
 
         public void disconnect() {
-            telnetClient.disconnect();
             stop = true;
+            telnetClient.disconnect();
         }
 
         public void connect(string ip, int port) {
             try
             {
                 telnetClient.connect(ip, port);
+                this.start();
+                Console.WriteLine("Connected!");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Can't connect to server!");
             }
         }
 
-        //need to finish this.
+        public void EnqueueMsg(double val, string message)
+        {
+            setQueue.Enqueue(message + val + "\n");
+        }
 
         public void start() {
             new Thread(delegate ()
             {
+                string lol = String.Empty;
                 while (!stop)
                 {
+                    mutex.WaitOne();
                     //as long as the server is not disconnected, keep reading values.
 
                     telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\n");
-                    heading_deg = Math.Round(Double.Parse(telnetClient.read()));
+                    lol = telnetClient.read();
+                   // Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
+                        Heading_deg = Double.Parse(lol);
+                    }
+                    mutex.ReleaseMutex();
 
+                    mutex.WaitOne();
                     telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\n");
-                    vertical_speed = Math.Round(Double.Parse(telnetClient.read()));
-
+                    lol = telnetClient.read();
+                   // Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
+                        Vertical_speed = Double.Parse(lol);
+                    }
+                    mutex.ReleaseMutex();
+                    mutex.WaitOne();
                     telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\n");
-                    ground_speed = Math.Round(Double.Parse(telnetClient.read()));
+                    lol = telnetClient.read();
+                   // Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
 
+                        Ground_speed = Double.Parse(lol);
+
+                    }
+                    //   Ground_speed = Double.Parse(telnetClient.read());
+                    mutex.ReleaseMutex();
+                    mutex.WaitOne();
                     telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
-                    airSpeed = Math.Round(Double.Parse(telnetClient.read()));
+                    lol = telnetClient.read();
+                   // Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
 
+                        AirSpeed = Double.Parse(lol);
+                    }
+
+                    //   AirSpeed = Double.Parse(telnetClient.read());
+                    mutex.ReleaseMutex();
+                    mutex.WaitOne();
+                    telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\n");
+                    lol = telnetClient.read();
+                   // Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
+                                             
+                            Gps_altitude = Double.Parse(lol);
+                        
+                    }
+                    //    Gps_altitude = Double.Parse(telnetClient.read());
+                    mutex.ReleaseMutex();
+                    mutex.WaitOne();
                     telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\n");
-                    gps_altitude = Math.Round(Double.Parse(telnetClient.read()));
-
+                    lol = telnetClient.read();
+                  //  Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
+                        
+                            Roll_deg = Double.Parse(lol);
+                        
+                    }
+                    //   Roll_deg = Double.Parse(telnetClient.read());
+                    mutex.ReleaseMutex();
+                    mutex.WaitOne();
                     telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
-                    roll_deg = Math.Round(Double.Parse(telnetClient.read()));
-
-                    telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\n");
-                    pitch_deg = Math.Round(Double.Parse(telnetClient.read()));
-
+                    lol = telnetClient.read();
+                   // Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
+                       
+                            Pitch_deg = Double.Parse(lol);
+                        
+                    }
+                    //    Pitch_deg = Double.Parse(telnetClient.read());
+                    mutex.ReleaseMutex();
+                    mutex.WaitOne();
                     telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\n");
-                    altimeter = Math.Round(Double.Parse(telnetClient.read()));
-
+                    lol = telnetClient.read();
+                  //  Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
+                        
+                            Altimeter = Double.Parse(lol);
+                        
+                    }
+                    //  Altimeter = Double.Parse(telnetClient.read());
+                    mutex.ReleaseMutex();
+                    mutex.WaitOne();
                     telnetClient.write("get /position/longitude-deg\n");
-                    longitude_deg = Math.Round(Double.Parse(telnetClient.read()));
-
+                    lol = telnetClient.read();
+                  //  Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
+                        
+                           Longitude_deg = Double.Parse(lol);
+                        
+                    }
+                    //   Longitude_deg = Double.Parse(telnetClient.read());
+                    mutex.ReleaseMutex();
+                    mutex.WaitOne();
                     telnetClient.write("get /position/latitude-deg\n");
-                    latitude_deg = Math.Round(Double.Parse(telnetClient.read()));
-                    //4 times
-                    Thread.Sleep(250);
+                    lol = telnetClient.read();
+                   // Console.WriteLine(lol);
+                    if (!lol.Contains("ERR"))
+                    {
+                        Latitude_deg = Double.Parse(lol);
+                    }
+                    // Latitude_deg = Double.Parse(telnetClient.read());
+                    mutex.ReleaseMutex();
+                    //4 times        
+
+                    Thread.Sleep(250);              
                 }
 
+            }).Start();
+
+            new Thread(delegate ()
+            {
+                while (!stop)
+                {
+                    if (setQueue.Count != 0)
+                    {
+                        mutex.WaitOne();
+                        telnetClient.write(setQueue.Dequeue());
+                        Console.WriteLine("Message recieve :");
+                        string r = telnetClient.read();
+                        mutex.ReleaseMutex();
+                        Console.WriteLine(r);
+                    }                   
+                }
             }).Start();
         }
     }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Maps.MapControl.WPF;
+using FlightSimulatorApp.ViewModels;
 
 namespace FlightSimulatorApp.View
 {
@@ -23,6 +25,11 @@ namespace FlightSimulatorApp.View
         public Map()
         {
             InitializeComponent();
+        }
+
+        private void locationPin_LayoutUpdated(object sender, EventArgs e)
+        {
+
         }
     }
 }
