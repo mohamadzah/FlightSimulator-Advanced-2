@@ -33,7 +33,6 @@ namespace FlightSimulatorApp.View
             myBoard.Stop();
         }
 
-
         public static readonly DependencyProperty rudderProperty = DependencyProperty.Register("Rudder", typeof(double), typeof(Joystick));
 
         public double Rudder
@@ -60,7 +59,7 @@ namespace FlightSimulatorApp.View
         private void Knob_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed) {
-
+                
                 double tempX = e.GetPosition(this).X - point.X;
                 double tempY = e.GetPosition(this).Y - point.Y;
                 double distanceKnob = Math.Sqrt(Math.Pow(tempX, 2) + Math.Pow(tempY, 2));
@@ -71,7 +70,6 @@ namespace FlightSimulatorApp.View
                     //   knobPosition.Y = tempY;
                     knobPosition.X = tempX;
                     knobPosition.Y = tempY;
-
                 }
                 else
                 {

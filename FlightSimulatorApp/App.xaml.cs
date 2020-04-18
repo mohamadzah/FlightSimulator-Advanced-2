@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using FlightSimulatorApp.ViewModels;
 using FlightSimulatorApp.Model;
+using FlightSimulatorApp.View;
 
 namespace FlightSimulatorApp
 {
@@ -15,5 +16,11 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class App : Application
     {
+        // APP STARTUP
+
+        void App_Startup(object sender, StartupEventArgs e)
+        {
+
+        }
     }
 }

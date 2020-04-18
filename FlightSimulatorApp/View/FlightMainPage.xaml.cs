@@ -10,21 +10,32 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FlightSimulatorApp.ViewModels;
 using FlightSimulatorApp.Model;
 
-namespace FlightSimulatorApp
+namespace FlightSimulatorApp.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for FlightMainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FlightMainPage : Window
     {
-        public MainWindow()
+        private IModel ml;
+
+        //Constructor.
+        public FlightMainPage(IModel _ml)
         {
+            this.ml = _ml;
             InitializeComponent();
+        }
+        //Disconnect from the application and go back to home page.
+        private void disconnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            ml.disconnect();
+            Home main = new Home();
+            main.Show();
+            Close();
         }
     }
 }

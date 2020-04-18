@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FlightSimulatorApp.ViewModels;
 using FlightSimulatorApp.Model;
+using FlightSimulatorApp.View;
 
 namespace FlightSimulatorApp
 {
@@ -27,9 +28,11 @@ namespace FlightSimulatorApp
         ManualViewModel mvm;
         PlaneViewModel pvm;
         DashBoardViewModel dvm;
+
         public Home()
         {
             InitializeComponent();
+            //Initialize the model and view models.
             model = new MyModel(new MyTelnetClient());
             vm = new ViewModel(this.model);
             this.mvm = new ManualViewModel(this.model);
@@ -42,27 +45,30 @@ namespace FlightSimulatorApp
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow(model);
+            FlightMainPage main = new FlightMainPage(model);
+            //bind context.
             main.dashboard.DataContext = this.dvm;
             main.map.DataContext = this.pvm;
             main.joystick.DataContext = this.mvm;
             main.sliders.DataContext = this.mvm;
 
-            vm.VM_ip = ipText.Text;
-
+            vm.VM_Ip = ipText.Text;
+            //Check whether entered values are valid and correct.
             int val;
             if (portText.Text == "" || ipText.Text == "")
             {
                 MessageBox.Show("You need to fill the fields!");
             }
+
             else if (!int.TryParse(portText.Text, out val))
             {
                 MessageBox.Show("You need to fill a valid numeric port value!");
             }
-
+            //If everything is ok, we try to start the connection to the server.
             else
             {
-                vm.VM_port = int.Parse(portText.Text);
+                //set the port.
+                vm.VM_Port = int.Parse(portText.Text);
 
                 try
                 {
@@ -77,7 +83,7 @@ namespace FlightSimulatorApp
             }
           
         }
-
+        // Exit and close the application.
         private void exitButton_Click_1(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();

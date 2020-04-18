@@ -9,10 +9,14 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp.ViewModels
 {
-    class ManualViewModel 
+    /// <summary>
+    /// ManualViewModel class.
+    /// </summary>
+    public class ManualViewModel 
     {
         private IModel model;
 
+        //Constructor.
         public ManualViewModel(IModel _model)
         {
             this.model = _model;
@@ -20,7 +24,7 @@ namespace FlightSimulatorApp.ViewModels
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
-
+        //INotifyPropertyChanged implementation.
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propName)
@@ -31,6 +35,7 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
 
+        //Get/Set properties for Manual controls.
         public double VM_Throttle { set { model.Throttle = value; } get { return model.Throttle; } }
         public double VM_Rudder { set { model.Rudder = value; } get { return model.Rudder; } }
         public double VM_Elevator { set { model.Elevator = value; } get { return model.Elevator; } }

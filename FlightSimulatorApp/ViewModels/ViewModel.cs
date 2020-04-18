@@ -12,12 +12,16 @@ namespace FlightSimulatorApp.ViewModels
 {
     //the view model recieves the commands, and commands the model.
     //has to implement Inotifypropertychanged.
-    class ViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// ViewModel (settings view model)
+    /// </summary>
+    public class ViewModel : INotifyPropertyChanged
     {
         private IModel model;
         private int port;
         private string ip;
 
+        //Constructor.
         public ViewModel(IModel _model) {
             this.model = _model;
             model.PropertyChanged += delegate (Object sender, PropertyChangedEventArgs e) {
@@ -25,7 +29,7 @@ namespace FlightSimulatorApp.ViewModels
             };
 
         }
-
+        //INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propName)
@@ -36,7 +40,8 @@ namespace FlightSimulatorApp.ViewModels
             }
         }   
 
-        public string VM_ip
+        //set the ip
+        public string VM_Ip
         {
             set
             {
@@ -44,7 +49,8 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
 
-        public int VM_port
+        //set the port
+        public int VM_Port
         {
             set
             {
@@ -52,16 +58,19 @@ namespace FlightSimulatorApp.ViewModels
             }
         }
 
+        //Connect to server.
         public void Connect()
         {
             this.model.connect(ip, port);
         }
 
+        //Disconnect from server
         public void Disconnect()
         {
             this.model.disconnect();
         }
 
+        //Start the threads
         public void Start()
         {
             this.model.start();

@@ -9,10 +9,14 @@ using Microsoft.Maps.MapControl.WPF;
 
 namespace FlightSimulatorApp.ViewModels
 {
-    class DashBoardViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// DashBoardViewModel class.
+    /// </summary>
+    public class DashBoardViewModel : INotifyPropertyChanged
     {
         private IModel model;
 
+        //Constructor.
         public DashBoardViewModel(IModel _model)
         {
             this.model = _model;
@@ -20,7 +24,7 @@ namespace FlightSimulatorApp.ViewModels
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };    
         }
-
+        //Implement NotifyPropertyChanged.
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged(string propName)
@@ -28,6 +32,7 @@ namespace FlightSimulatorApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
+        // Get/Set properties for dashboard. 
         public double VM_Heading_deg { get { return model.Heading_deg; }  set { } }
         public double VM_Vertical_speed { get { return model.Vertical_speed; } set { } }
         public double VM_Ground_speed { get { return model.Ground_speed; } set { } }

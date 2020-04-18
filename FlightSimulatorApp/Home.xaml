@@ -8,7 +8,7 @@
         Title="Home - Flight Simulator" Height="480" Width="905">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="1307274.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="Pictures/1307274.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
         <Button x:Name="connectButton" Content="Connect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="112" Margin="21,10,0,0" Height="62" FontSize="20" Click="connectButton_Click">
             <Button.Background>
