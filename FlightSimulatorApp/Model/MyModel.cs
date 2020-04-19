@@ -15,7 +15,7 @@ namespace FlightSimulatorApp.Model
         public volatile Boolean stop = false;
         private Mutex mutex = new Mutex();
         private Queue<string> setQueue;
-        private volatile Boolean isConnected;
+
 
         //Implement INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -52,6 +52,7 @@ namespace FlightSimulatorApp.Model
         private double aileron;
 
         private string error;
+        private bool status;
 
         private int port;
         private string ip;
@@ -277,19 +278,31 @@ namespace FlightSimulatorApp.Model
                 NotifyPropertyChanged("Error");
             }
         }
-        
+
+        public bool Status
+        {
+            get { return this.status; }
+            set
+            {
+                this.status = value;
+                NotifyPropertyChanged("Status");
+            }
+        }
+
         public void connect(string ip, int port) {
             try
             {
                 telnetClient.connect(ip, port);
                 this.start();
                 Console.WriteLine("Connected!");
-                isConnected = true;
+                status = true;
             }
+
             catch (Exception)
             {
                 Console.WriteLine("Can't connect to server!");
-                isConnected = false;
+                status = false;
+                this.Error = "initiateERR";
             }
         }
 
@@ -319,9 +332,8 @@ namespace FlightSimulatorApp.Model
                 {
                     flag = 0; 
                     //as long as the server is not disconnected, keep reading values.
-
                     mutex.WaitOne();
-                    telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\n");
+                    telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\n");                   
                     readMessage = telnetClient.read();
                     // Console.WriteLine(readMessage);
                     if (!readMessage.Contains("ERR"))
@@ -421,7 +433,7 @@ namespace FlightSimulatorApp.Model
                         if (flag == 1)
                         {
                             //if the recieved longitude and latitude are within the valid range for these values.
-                            if ((Latitude_deg >= -90) && (Latitude_deg <= 90) && (Longitude_deg >= -180) && (Longitude_deg <= 180))
+                            if ((Latitude_deg >= -90) && (Latitude_deg <= 90))
                             {
                                 Location = new Location(Latitude_deg, Longitude_deg);
                             }

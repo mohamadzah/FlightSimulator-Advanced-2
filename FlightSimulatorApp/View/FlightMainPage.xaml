@@ -34,15 +34,17 @@
 
             <view:Map x:Name="map" Margin="2,2,223,180" Grid.RowSpan="2"/>
 
-            <view:Dashboard x:Name="dashboard" Margin="607,1,370,411" DataContext="DashBoardViewModel" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <view:Dashboard x:Name="dashboard" Margin="607,1,370,411" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
             <Viewbox Margin="597,224,-114,21" Grid.ColumnSpan="2" Stretch="Fill" Grid.RowSpan="2">
                 <view:Controls x:Name="controls" Height="9899" Width="4633"/>
             </Viewbox>
 
             <Button x:Name="disconnectButton" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="15,363.045,0,0" RenderTransformOrigin="4.037,13.205" Height="78" FontSize="27" Click="disconnectButton_Click" Grid.Row="1" FontStyle="Italic" Background="{x:Null}" Foreground="#FFD0D0E6"/>
-            
+
             <Border BorderBrush="DodgerBlue" BorderThickness="5" HorizontalAlignment="Left" Height="549" Margin="1,1,0,0" VerticalAlignment="Top" Width="599" Grid.RowSpan="2"/>
+
+            <Label x:Name="connectionLabel" Content="Connected" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Margin="160,1,0,0" Height="39" Width="112" FontSize="20" Foreground="NavajoWhite" FontStyle="Italic"/>
 
         </Grid>
     </Viewbox>

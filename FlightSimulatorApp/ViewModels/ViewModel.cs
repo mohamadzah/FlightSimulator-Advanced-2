@@ -20,7 +20,6 @@ namespace FlightSimulatorApp.ViewModels
         private IModel model;
         private int port;
         private string ip;
-        private string error;
 
         //Constructor.
         public ViewModel(IModel _model) {
@@ -30,6 +29,7 @@ namespace FlightSimulatorApp.ViewModels
             };
 
         }
+
         //INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -61,14 +61,17 @@ namespace FlightSimulatorApp.ViewModels
 
         public string VM_Error
         {
-            get { return this.error; }
+            get { return model.Error; }
             set
             {
-                this.error = value;
-                NotifyPropertyChanged("Error");
+                model.Error = value;
             }
         }
 
+        public bool VM_Status
+        {
+            get { return model.Status; }
+        }
 
         //Connect to server.
         public void Connect()

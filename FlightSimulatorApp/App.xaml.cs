@@ -16,6 +16,7 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class App : Application
     {
+
         // APP STARTUP
         private IModel model;
         public ViewModel vm;
@@ -24,6 +25,7 @@ namespace FlightSimulatorApp
         public DashBoardViewModel boardViewModel;
         public FlightMainPage main;
         public Home homePage;
+
         void App_Startup(object sender, StartupEventArgs e)
         {
             model = new MyModel(new MyTelnetClient());
@@ -31,7 +33,7 @@ namespace FlightSimulatorApp
             this.manualViewModel = new ManualViewModel(this.model);
             this.boardViewModel = new DashBoardViewModel(this.model);
             this.planeViewModel = new PlaneViewModel(this.model);
-            this.main = new FlightMainPage(model);
+            this.main = new FlightMainPage();
             this.homePage = new Home();
             this.homePage.Show();
         }

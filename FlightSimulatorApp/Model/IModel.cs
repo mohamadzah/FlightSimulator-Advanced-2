@@ -45,9 +45,11 @@ namespace FlightSimulatorApp.Model
         double Elevator { get; set; }
         double Aileron { get; set; }
 
+        //Connection.
         string Error { get; set; }
+        bool Status { get; set; }
 
-        //Settings
+        //Settings.
         int Port { get; set; }
         string Ip { get; set; }
     }

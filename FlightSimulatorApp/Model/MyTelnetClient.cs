@@ -41,11 +41,9 @@ namespace FlightSimulatorApp.Model
             Byte[] encodedMsg = Encoding.ASCII.GetBytes(command);
             //try to send the message to the server.
             try
-            {
-                tcpClient.ReceiveTimeout = 10000;
+            {             
                 tcpClient.GetStream().Write(encodedMsg, 0, encodedMsg.Length);
             }
-
             catch
             {
                 Console.WriteLine();
@@ -58,6 +56,7 @@ namespace FlightSimulatorApp.Model
             Byte[] sentBack = new Byte[256];
             try
             {
+                tcpClient.ReceiveTimeout = 10000;
                 int len = tcpClient.GetStream().Read(sentBack, 0, sentBack.Length);
                 string message = Encoding.ASCII.GetString(sentBack, 0, len);
                 return message;

@@ -31,11 +31,13 @@ namespace FlightSimulatorApp
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
             //bind context.
+            DataContext = (Application.Current as App).vm;
+
             (Application.Current as App).main.dashboard.DataContext = (Application.Current as App).boardViewModel;
             (Application.Current as App).main.map.DataContext = (Application.Current as App).planeViewModel;
             (Application.Current as App).main.controls.DataContext = (Application.Current as App).manualViewModel;
-
             (Application.Current as App).vm.VM_Ip = ipText.Text;
+
             //Check whether entered values are valid and correct.
             int val;
             if (portText.Text == "" || ipText.Text == "")
@@ -47,6 +49,7 @@ namespace FlightSimulatorApp
             {
                 MessageBox.Show("You need to fill a valid numeric port value!");
             }
+
             //If everything is ok, we try to start the connection to the server.
             else
             {
@@ -56,13 +59,23 @@ namespace FlightSimulatorApp
                 try
                 {
                     (Application.Current as App).vm.Connect();
-                    (Application.Current as App).main.Show();
-                    this.Close();
+                    if ((Application.Current as App).vm.VM_Error != "initiateERR")
+                    {
+                        (Application.Current as App).main.Show();
+                        this.Close();
+                    }
+
+                    else
+                    {
+                        (Application.Current as App).vm.VM_Error = "RESET";
+                        MessageBox.Show("Connection request was not established! Please confirm that your input is correct/ your server is up and running!");
+                    }
                 }
-                //catch exception if something went wrong.
-                catch
+
+                catch (Exception)
                 {
-                    Console.WriteLine("Error with connection!");
+                    (Application.Current as App).vm.VM_Error = "RESET";
+                    throw new Exception();
                 }
             }
           

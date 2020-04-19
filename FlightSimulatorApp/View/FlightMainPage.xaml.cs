@@ -21,18 +21,16 @@ namespace FlightSimulatorApp.View
     /// </summary>
     public partial class FlightMainPage : Window
     {
-        private IModel ml;
 
-        public FlightMainPage(IModel _ml)
+        public FlightMainPage()
         {
-            this.ml = _ml;
             InitializeComponent();
         }
 
         //Disconnect from the application and go back to main
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
-            ml.disconnect();
+            (Application.Current as App).vm.Disconnect();
             Home main = new Home();
             main.Show();
             Close();
