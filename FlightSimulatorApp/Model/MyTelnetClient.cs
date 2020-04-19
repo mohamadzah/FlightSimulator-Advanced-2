@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows;
 using System.IO;
 
 namespace FlightSimulatorApp.Model
@@ -14,7 +15,7 @@ namespace FlightSimulatorApp.Model
         private TcpClient tcpClient;
         private NetworkStream stream;
         private Mutex mutex = new Mutex();
-        
+
         //Connecting to the server.
         public void connect(string ip, int port)
         {
@@ -61,15 +62,19 @@ namespace FlightSimulatorApp.Model
                 string message = Encoding.ASCII.GetString(sentBack, 0, len);
                 return message;
             }
+
             catch (IOException)
             {
-                Console.WriteLine("The server didn't respond during time frame set");
+                (Application.Current as App).ShowMessage("The server didn't respond during time, going back to home page.");
                 disconnect();
                 return null;
             }
-            catch (Exception e)
+
+            catch (InvalidOperationException)
             {
-                throw new Exception(e.Message);
+                (Application.Current as App).ShowMessage("Connection error suddenly occured! going back to home page.");
+                disconnect();
+                return null;
             }
         }
 
@@ -77,7 +82,7 @@ namespace FlightSimulatorApp.Model
         public void disconnect()
         {
             tcpClient.Client.Close(); //disconnect from the server.
-            Console.WriteLine("Disconnected!");
+            Console.WriteLine("Disconnected!");           
         }
     }
 }

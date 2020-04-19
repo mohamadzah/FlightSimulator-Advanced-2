@@ -31,10 +31,10 @@ namespace FlightSimulatorApp.View
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
             (Application.Current as App).vm.Disconnect();
-            Home main = new Home();
-            main.Show();
-            Close();
+            // Home main = new Home();
+            //main.Show();
+            // Close();
+            (Application.Current as App).Restart();
         }
-
     }
 }

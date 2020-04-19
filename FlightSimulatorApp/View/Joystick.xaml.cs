@@ -81,13 +81,8 @@ namespace FlightSimulatorApp.View
                         knobPosition.X = Math.Cos(tangentAngle) * (Base.Width / 2);
                         knobPosition.Y = Math.Sin(tangentAngle) * (Base.Width / 2);
                     }
-                    else  if (tempX > 0)
-                    {
-                        knobPosition.X = Math.Cos(tangentAngle) * (Base.Width / 2);
-                        knobPosition.Y = Math.Sin(tangentAngle) * -(Base.Width / 2);
-                    }
-                }
 
+                }
                 Rudder = knobPosition.X / (Base.Width / 2);
                 Elevator = knobPosition.Y / -(Base.Width / 2);
             }

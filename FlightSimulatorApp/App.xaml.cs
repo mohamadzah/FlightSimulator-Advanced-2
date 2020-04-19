@@ -37,5 +37,16 @@ namespace FlightSimulatorApp
             this.homePage = new Home();
             this.homePage.Show();
         }
+
+        public void Restart()
+        {
+            System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
+        }
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
     }
 }

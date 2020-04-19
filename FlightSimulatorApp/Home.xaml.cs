@@ -26,18 +26,15 @@ namespace FlightSimulatorApp
         public Home()
         {
             InitializeComponent();
+            DataContext = (Application.Current as App).vm;
+            (Application.Current as App).main.dashboard.DataContext = (Application.Current as App).boardViewModel;
+            (Application.Current as App).main.map.DataContext = (Application.Current as App).planeViewModel;
+            (Application.Current as App).main.controls.DataContext = (Application.Current as App).manualViewModel;
         }
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
-            //bind context.
-            DataContext = (Application.Current as App).vm;
-
-            (Application.Current as App).main.dashboard.DataContext = (Application.Current as App).boardViewModel;
-            (Application.Current as App).main.map.DataContext = (Application.Current as App).planeViewModel;
-            (Application.Current as App).main.controls.DataContext = (Application.Current as App).manualViewModel;
             (Application.Current as App).vm.VM_Ip = ipText.Text;
-
             //Check whether entered values are valid and correct.
             int val;
             if (portText.Text == "" || ipText.Text == "")
@@ -77,6 +74,7 @@ namespace FlightSimulatorApp
                     (Application.Current as App).vm.VM_Error = "RESET";
                     throw new Exception();
                 }
+
             }
           
         }

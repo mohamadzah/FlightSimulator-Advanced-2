@@ -16,7 +16,6 @@ namespace FlightSimulatorApp.Model
         private Mutex mutex = new Mutex();
         private Queue<string> setQueue;
 
-
         //Implement INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,11 +26,13 @@ namespace FlightSimulatorApp.Model
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
+
         //Constructor
         public MyModel(ITelnetClient _telnetClient) {
             this.telnetClient = _telnetClient;
             setQueue = new Queue<string>();
         }
+
         //Model properties 
         private double heading_deg;
         private double vertical_speed;
@@ -308,11 +309,17 @@ namespace FlightSimulatorApp.Model
 
         public void disconnect()
         {
+
+            while (setQueue.Count != 0) { }
+
+            stop = true;
+
             if (setQueue.Count == 0)
             {
-                stop = true;
+                Thread.Sleep(50);
                 telnetClient.disconnect();
-            } else
+            } 
+            else
             {
                 Console.WriteLine("F");
             }
@@ -326,6 +333,17 @@ namespace FlightSimulatorApp.Model
         public void start() {
             new Thread(delegate ()
             {
+                Heading_deg = 0;
+                AirSpeed = 0;
+                Ground_speed = 0;
+                Altimeter = 0;
+                Gps_altitude = 0;
+                Roll_deg = 0;
+                Pitch_deg = 0;
+                Vertical_speed = 0;
+                Latitude_deg = 0;
+                Longitude_deg = 0;
+
                 string readMessage = String.Empty;
                 int flag = 0;
                 while (!stop)
@@ -335,8 +353,8 @@ namespace FlightSimulatorApp.Model
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/heading-indicator/indicated-heading-deg\n");                   
                     readMessage = telnetClient.read();
-                    // Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         Heading_deg = Double.Parse(readMessage);
                     }
@@ -345,17 +363,18 @@ namespace FlightSimulatorApp.Model
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/gps/indicated-vertical-speed\n");
                     readMessage = telnetClient.read();
-                    // Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+                 
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         Vertical_speed = Double.Parse(readMessage);
                     }
                     mutex.ReleaseMutex();
+
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/gps/indicated-ground-speed-kt\n");
                     readMessage = telnetClient.read();
-                    // Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+                 
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         Ground_speed = Double.Parse(readMessage);
                     }
@@ -364,49 +383,51 @@ namespace FlightSimulatorApp.Model
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
                     readMessage = telnetClient.read();
-                    // Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+                
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         AirSpeed = Double.Parse(readMessage);
-                    }
-
-            
+                    }                 
                     mutex.ReleaseMutex();
+
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/gps/indicated-altitude-ft\n");
                     readMessage = telnetClient.read();
-                    // Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+               
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         Gps_altitude = Double.Parse(readMessage);
                     }
    
                     mutex.ReleaseMutex();
+
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/attitude-indicator/internal-roll-deg\n");
                     readMessage = telnetClient.read();
-                    //  Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+                 
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         Roll_deg = Double.Parse(readMessage);
                     }
 
                     mutex.ReleaseMutex();
+
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
                     readMessage = telnetClient.read();
-                    // Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+                  
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         Pitch_deg = Double.Parse(readMessage);
                     }
 
                     mutex.ReleaseMutex();
+
                     mutex.WaitOne();
                     telnetClient.write("get /instrumentation/altimeter/indicated-altitude-ft\n");
                     readMessage = telnetClient.read();
-                    //  Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+                  
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         Altimeter = Double.Parse(readMessage);
                     }
@@ -415,19 +436,20 @@ namespace FlightSimulatorApp.Model
                     mutex.WaitOne();
                     telnetClient.write("get /position/longitude-deg\n");
                     readMessage = telnetClient.read();
-                    //  Console.WriteLine(readMessage);
-                    if (!readMessage.Contains("ERR"))
+       
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         flag = 1;
                         Longitude_deg = Double.Parse(readMessage);
                     }
 
                     mutex.ReleaseMutex();
+
                     mutex.WaitOne();
                     telnetClient.write("get /position/latitude-deg\n");
                     readMessage = telnetClient.read();
 
-                    if (!readMessage.Contains("ERR"))
+                    if ((!readMessage.Contains("ERR")) && (!readMessage.Contains("CRITICAL")))
                     {
                         Latitude_deg = Double.Parse(readMessage);
                         if (flag == 1)
@@ -448,6 +470,7 @@ namespace FlightSimulatorApp.Model
 
             }).Start();
 
+            //keep sending the values using the joystick.
             new Thread(delegate ()
             {
                 while (!stop)
@@ -456,9 +479,7 @@ namespace FlightSimulatorApp.Model
                     {
                         mutex.WaitOne();
                         string messageSend = setQueue.Dequeue();
-                        Console.WriteLine(messageSend);
                         telnetClient.write(messageSend);
-                        Console.WriteLine("Message recieve :");
                         string r = telnetClient.read();
                         mutex.ReleaseMutex();
                         Console.WriteLine(r);
