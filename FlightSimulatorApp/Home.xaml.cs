@@ -23,39 +23,24 @@ namespace FlightSimulatorApp
     public partial class Home : Window
     {
         // APP STARTUP
-        private IModel model;
-        public ViewModel vm;
-        public ManualViewModel manualViewModel;
-        public PlaneViewModel planeViewModel;
-        DashBoardViewModel boardViewModel;
-
         public Home()
         {
             InitializeComponent();
-            //Initialize the model and view models.
-            model = new MyModel(new MyTelnetClient());
-            vm = new ViewModel(this.model);
-            this.manualViewModel = new ManualViewModel(this.model);
-            this.boardViewModel = new DashBoardViewModel(this.model);
-            this.planeViewModel = new PlaneViewModel(this.model);
-            //binding context.
-            DataContext = vm;
         }
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
-            FlightMainPage main = new FlightMainPage(model);
             //bind context.
-            main.dashboard.DataContext = this.boardViewModel;
-            main.map.DataContext = this.planeViewModel;
-            main.controls.DataContext = this.manualViewModel;
+            (Application.Current as App).main.dashboard.DataContext = (Application.Current as App).boardViewModel;
+            (Application.Current as App).main.map.DataContext = (Application.Current as App).planeViewModel;
+            (Application.Current as App).main.controls.DataContext = (Application.Current as App).manualViewModel;
 
-            vm.VM_Ip = ipText.Text;
+            (Application.Current as App).vm.VM_Ip = ipText.Text;
             //Check whether entered values are valid and correct.
             int val;
             if (portText.Text == "" || ipText.Text == "")
             {
-                MessageBox.Show("You need to fill the fields!");
+                MessageBox.Show("You need to fill the fields with valid values!");
             }
 
             else if (!int.TryParse(portText.Text, out val))
@@ -66,12 +51,12 @@ namespace FlightSimulatorApp
             else
             {
                 //set the port.
-                vm.VM_Port = int.Parse(portText.Text);
+                (Application.Current as App).vm.VM_Port = int.Parse(portText.Text);
                 // try connection.
                 try
                 {
-                    this.vm.Connect();
-                    main.Show();
+                    (Application.Current as App).vm.Connect();
+                    (Application.Current as App).main.Show();
                     this.Close();
                 }
                 //catch exception if something went wrong.

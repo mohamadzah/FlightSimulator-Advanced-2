@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.IO;
 
 namespace FlightSimulatorApp.Model
 {
@@ -25,10 +26,12 @@ namespace FlightSimulatorApp.Model
                 tcpClient.Connect(ip, port);
                 stream = tcpClient.GetStream();
             }
+
             //Catch an exception in case establishing doesn't work.
-            catch(Exception)
+            catch(IOException)
             {
                 Console.WriteLine("Could not connect!");
+                throw new IOException();              
             }
         }
 
@@ -53,9 +56,22 @@ namespace FlightSimulatorApp.Model
         public string read()
         {
             Byte[] sentBack = new Byte[256];
-            int len = tcpClient.GetStream().Read(sentBack, 0, sentBack.Length);
-            string message = Encoding.ASCII.GetString(sentBack, 0, len);
-            return message;
+            try
+            {
+                int len = tcpClient.GetStream().Read(sentBack, 0, sentBack.Length);
+                string message = Encoding.ASCII.GetString(sentBack, 0, len);
+                return message;
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("The server didn't respond during time frame set");
+                disconnect();
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         //Close the established connection

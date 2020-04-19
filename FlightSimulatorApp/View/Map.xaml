@@ -9,8 +9,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <m:Map Name="map" CredentialsProvider="8s47IExBKV2oTUyWaYjv~UzV5b_JoOavf1ov-KHQfsA~ApWafMjLgF2hwyg6vJrPqpRYOg9j21TAqVICAn5DzvhCwypTaZJHsdvqYoEl0SY9" Mode="AerialWithLabels" Grid.Column="0" ZoomLevel="10" Center="32.0055, 34.8854">
-            <m:Pushpin Name="locationPin" Location= "{Binding VM_Location}" LayoutUpdated="locationPin_LayoutUpdated" m:MapLayer.Position="{Binding ElementName=locationPin, Path=Location}">
+        <m:Map Name="map" CredentialsProvider="8s47IExBKV2oTUyWaYjv~UzV5b_JoOavf1ov-KHQfsA~ApWafMjLgF2hwyg6vJrPqpRYOg9j21TAqVICAn5DzvhCwypTaZJHsdvqYoEl0SY9" Mode="AerialWithLabels" Grid.Column="0" ZoomLevel="8" Center="32.0055, 34.8854">
+            <m:Pushpin Name="locationPin" Location= "{Binding VM_Location}" LayoutUpdated="locationPin_LayoutUpdated">
                 <m:Pushpin.Background>
                     <ImageBrush ImageSource="/FlightSimulatorApp;component/Pictures/pngfind.com-plane-icon-png-1329105.png" Stretch="UniformToFill"/>
                 </m:Pushpin.Background>

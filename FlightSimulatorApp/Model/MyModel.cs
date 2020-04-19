@@ -15,6 +15,7 @@ namespace FlightSimulatorApp.Model
         public volatile Boolean stop = false;
         private Mutex mutex = new Mutex();
         private Queue<string> setQueue;
+        private volatile Boolean isConnected;
 
         //Implement INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -49,6 +50,8 @@ namespace FlightSimulatorApp.Model
         private double rudder;
         private double elevator;
         private double aileron;
+
+        private string error;
 
         private int port;
         private string ip;
@@ -265,24 +268,41 @@ namespace FlightSimulatorApp.Model
             }
         }
 
-
+        public string Error
+        {
+            get { return this.error; }
+            set
+            {
+                this.error = value;
+                NotifyPropertyChanged("Error");
+            }
+        }
+        
         public void connect(string ip, int port) {
             try
             {
                 telnetClient.connect(ip, port);
                 this.start();
                 Console.WriteLine("Connected!");
+                isConnected = true;
             }
             catch (Exception)
             {
                 Console.WriteLine("Can't connect to server!");
+                isConnected = false;
             }
         }
 
         public void disconnect()
         {
-            stop = true;
-            telnetClient.disconnect();
+            if (setQueue.Count == 0)
+            {
+                stop = true;
+                telnetClient.disconnect();
+            } else
+            {
+                Console.WriteLine("F");
+            }
         }
 
         public void EnqueueMsg(double val, string message)
@@ -431,7 +451,7 @@ namespace FlightSimulatorApp.Model
                         mutex.ReleaseMutex();
                         Console.WriteLine(r);
                     }
-                    Thread.Sleep(5);
+                    Thread.Sleep(1);
                 }
             }).Start();
         }
