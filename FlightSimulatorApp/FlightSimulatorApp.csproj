@@ -81,8 +81,8 @@
     <Compile Include="View\Map.xaml.cs">
       <DependentUpon>Map.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Sliders.xaml.cs">
-      <DependentUpon>Sliders.xaml</DependentUpon>
+    <Compile Include="View\Controls.xaml.cs">
+      <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
     <Page Include="Home.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -115,7 +115,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Sliders.xaml">
+    <Page Include="View\Controls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,13 +147,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pictures\896979.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Pictures\1307258.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Pictures\1307274.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\background2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictures\pngfind.com-plane-icon-png-1329105.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

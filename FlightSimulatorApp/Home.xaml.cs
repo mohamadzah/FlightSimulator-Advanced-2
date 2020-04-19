@@ -24,10 +24,10 @@ namespace FlightSimulatorApp
     {
         // APP STARTUP
         private IModel model;
-        ViewModel vm;
-        ManualViewModel mvm;
-        PlaneViewModel pvm;
-        DashBoardViewModel dvm;
+        public ViewModel vm;
+        public ManualViewModel manualViewModel;
+        public PlaneViewModel planeViewModel;
+        DashBoardViewModel boardViewModel;
 
         public Home()
         {
@@ -35,22 +35,20 @@ namespace FlightSimulatorApp
             //Initialize the model and view models.
             model = new MyModel(new MyTelnetClient());
             vm = new ViewModel(this.model);
-            this.mvm = new ManualViewModel(this.model);
-            this.dvm = new DashBoardViewModel(this.model);
-            this.pvm = new PlaneViewModel(this.model);
+            this.manualViewModel = new ManualViewModel(this.model);
+            this.boardViewModel = new DashBoardViewModel(this.model);
+            this.planeViewModel = new PlaneViewModel(this.model);
             //binding context.
             DataContext = vm;
-
         }
 
         private void connectButton_Click(object sender, RoutedEventArgs e)
         {
             FlightMainPage main = new FlightMainPage(model);
             //bind context.
-            main.dashboard.DataContext = this.dvm;
-            main.map.DataContext = this.pvm;
-            main.joystick.DataContext = this.mvm;
-            main.sliders.DataContext = this.mvm;
+            main.dashboard.DataContext = this.boardViewModel;
+            main.map.DataContext = this.planeViewModel;
+            main.controls.DataContext = this.manualViewModel;
 
             vm.VM_Ip = ipText.Text;
             //Check whether entered values are valid and correct.
@@ -69,13 +67,14 @@ namespace FlightSimulatorApp
             {
                 //set the port.
                 vm.VM_Port = int.Parse(portText.Text);
-
+                // try connection.
                 try
                 {
                     this.vm.Connect();
                     main.Show();
                     this.Close();
                 }
+                //catch exception if something went wrong.
                 catch
                 {
                     Console.WriteLine("Error with connection!");
@@ -83,10 +82,11 @@ namespace FlightSimulatorApp
             }
           
         }
+
         // Exit and close the application.
         private void exitButton_Click_1(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            Application.Current.Shutdown();
         }
     }
 }

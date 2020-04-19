@@ -9,7 +9,7 @@
         xmlns:view="clr-namespace:FlightSimulatorApp.View"
         xmlns:viewmodels="clr-namespace:FlightSimulatorApp.ViewModels"
         mc:Ignorable="d"
-        Title="Flight Simulator" Height="938.21" Width="1339.697" WindowStartupLocation="CenterScreen">
+        Title="Flight Simulator" Height="705.71" Width="1230.197" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0"/>
@@ -17,36 +17,34 @@
         </LinearGradientBrush>
     </Window.Background>
 
-    <Grid Margin="0,0,0,1">
-        <Grid.Background>
-            <ImageBrush/>
-        </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid HorizontalAlignment="Left" Height="100" Margin="483,315,0,0" VerticalAlignment="Top" Width="100" DataContext="ManualViewModel" />
+    <Viewbox Margin="0,0,0,1" Stretch="Fill">
 
-        <view:Joystick x:Name="joystick" RenderTransformOrigin="0.501,0.499" Margin="800,214,-66,55" Rudder="{Binding VM_Rudder, Mode=TwoWay}" Elevator="{Binding VM_Elevator, Mode=TwoWay}">
-        </view:Joystick>
+        <Grid Height="726" Width="1233">
+            <Grid.Background>
+                <ImageBrush ImageSource="/FlightSimulatorApp;component/Pictures/background2.jpg"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="137*"/>
+                <RowDefinition Height="226*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="818*"/>
+                <ColumnDefinition Width="415*"/>
+            </Grid.ColumnDefinitions>
 
-        <view:Map x:Name="map" Margin="2,2,567,385">
-        </view:Map>
+            <view:Map x:Name="map" Margin="2,2,223,180" Grid.RowSpan="2"/>
 
-        <view:Dashboard x:Name="dashboard" Margin="6,535,1049,58" DataContext="DashBoardViewModel">
-        </view:Dashboard>
+            <view:Dashboard x:Name="dashboard" Margin="607,1,370,411" DataContext="DashBoardViewModel" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
-        <view:Sliders x:Name="sliders" Loaded="sliders_Loaded" Margin="548,78,-681,-285">
-        </view:Sliders>
+            <Viewbox Margin="597,224,-114,21" Grid.ColumnSpan="2" Stretch="Fill" Grid.RowSpan="2">
+                <view:Controls x:Name="controls" Height="9899" Width="4633"/>
+            </Viewbox>
 
-        <Button x:Name="disconnectButton" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="1153,13,0,0" RenderTransformOrigin="4.037,13.205" Height="78" FontSize="30" Click="disconnectButton_Click">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FFE54DFD" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
+            <Button x:Name="disconnectButton" Content="Disconnect" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="15,363.045,0,0" RenderTransformOrigin="4.037,13.205" Height="78" FontSize="27" Click="disconnectButton_Click" Grid.Row="1" FontStyle="Italic" Background="{x:Null}" Foreground="#FFD0D0E6"/>
+            
+            <Border BorderBrush="DodgerBlue" BorderThickness="5" HorizontalAlignment="Left" Height="549" Margin="1,1,0,0" VerticalAlignment="Top" Width="599" Grid.RowSpan="2"/>
 
-    </Grid>
+        </Grid>
+    </Viewbox>
 </Window>
 

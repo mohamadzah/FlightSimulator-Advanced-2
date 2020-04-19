@@ -19,9 +19,9 @@ namespace FlightSimulatorApp.View
     /// <summary>
     /// Interaction logic for Sliders.xaml
     /// </summary>
-    public partial class Sliders : UserControl
+    public partial class Controls : UserControl
     {
-        public Sliders()
+        public Controls()
         {
             InitializeComponent();
         }
@@ -33,7 +33,7 @@ namespace FlightSimulatorApp.View
 
         private void aileronSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            aileronText.Text = aileronSlider.Value.ToString();
+            
         }
     }
 }

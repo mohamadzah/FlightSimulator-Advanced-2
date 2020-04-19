@@ -325,9 +325,7 @@ namespace FlightSimulatorApp.Model
                     // Console.WriteLine(readMessage);
                     if (!readMessage.Contains("ERR"))
                     {
-
                         Ground_speed = Double.Parse(readMessage);
-
                     }
                
                     mutex.ReleaseMutex();
@@ -337,7 +335,6 @@ namespace FlightSimulatorApp.Model
                     // Console.WriteLine(readMessage);
                     if (!readMessage.Contains("ERR"))
                     {
-
                         AirSpeed = Double.Parse(readMessage);
                     }
 
@@ -349,9 +346,7 @@ namespace FlightSimulatorApp.Model
                     // Console.WriteLine(readMessage);
                     if (!readMessage.Contains("ERR"))
                     {
-
                         Gps_altitude = Double.Parse(readMessage);
-
                     }
    
                     mutex.ReleaseMutex();
@@ -361,9 +356,7 @@ namespace FlightSimulatorApp.Model
                     //  Console.WriteLine(readMessage);
                     if (!readMessage.Contains("ERR"))
                     {
-
                         Roll_deg = Double.Parse(readMessage);
-
                     }
 
                     mutex.ReleaseMutex();
@@ -373,9 +366,7 @@ namespace FlightSimulatorApp.Model
                     // Console.WriteLine(readMessage);
                     if (!readMessage.Contains("ERR"))
                     {
-
                         Pitch_deg = Double.Parse(readMessage);
-
                     }
 
                     mutex.ReleaseMutex();
@@ -385,9 +376,7 @@ namespace FlightSimulatorApp.Model
                     //  Console.WriteLine(readMessage);
                     if (!readMessage.Contains("ERR"))
                     {
-
                         Altimeter = Double.Parse(readMessage);
-
                     }
   
                     mutex.ReleaseMutex();
@@ -411,7 +400,11 @@ namespace FlightSimulatorApp.Model
                         Latitude_deg = Double.Parse(readMessage);
                         if (flag == 1)
                         {
-                            Location = new Location(Latitude_deg, Longitude_deg);
+                            //if the recieved longitude and latitude are within the valid range for these values.
+                            if ((Latitude_deg >= -90) && (Latitude_deg <= 90) && (Longitude_deg >= -180) && (Longitude_deg <= 180))
+                            {
+                                Location = new Location(Latitude_deg, Longitude_deg);
+                            }
                         }
                     }
 
@@ -438,8 +431,7 @@ namespace FlightSimulatorApp.Model
                         mutex.ReleaseMutex();
                         Console.WriteLine(r);
                     }
-
-                    Thread.Sleep(10);
+                    Thread.Sleep(5);
                 }
             }).Start();
         }

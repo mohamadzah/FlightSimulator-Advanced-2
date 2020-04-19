@@ -7,13 +7,18 @@
              xmlns:local="clr-namespace:FlightSimulatorApp.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
         <m:Map Name="map" CredentialsProvider="8s47IExBKV2oTUyWaYjv~UzV5b_JoOavf1ov-KHQfsA~ApWafMjLgF2hwyg6vJrPqpRYOg9j21TAqVICAn5DzvhCwypTaZJHsdvqYoEl0SY9" Mode="AerialWithLabels" Grid.Column="0" ZoomLevel="10" Center="32.0055, 34.8854">
-            <m:Pushpin Name="locationPin" Location= "{Binding VM_Location}" LayoutUpdated="locationPin_LayoutUpdated" m:MapLayer.Position="{Binding ElementName=locationPin, Path=Location}"/>
+            <m:Pushpin Name="locationPin" Location= "{Binding VM_Location}" LayoutUpdated="locationPin_LayoutUpdated" m:MapLayer.Position="{Binding ElementName=locationPin, Path=Location}">
+                <m:Pushpin.Background>
+                    <ImageBrush ImageSource="/FlightSimulatorApp;component/Pictures/pngfind.com-plane-icon-png-1329105.png" Stretch="UniformToFill"/>
+                </m:Pushpin.Background>
+            </m:Pushpin>
         </m:Map>
 
-        <TextBlock x:Name="latitude" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Latitude_deg, StringFormat=Latitude: {0}}" VerticalAlignment="Top" Foreground="BlueViolet" FontSize="15" Width="230" Height="37" FontStyle="Italic"/>
+        <TextBlock x:Name="latitude" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Latitude_deg, StringFormat=Latitude: {0}}" VerticalAlignment="Top" Foreground="GhostWhite" FontSize="15" Width="230" Height="37" FontStyle="Italic" Margin="10,4,0,0"/>
 
-        <TextBlock x:Name="longitude" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Longitude_deg, StringFormat=Longitude: {0}}" VerticalAlignment="Top" Margin="0,39,0,0" Foreground="BlueViolet" Width="230" Height="37" FontSize="15" FontStyle="Italic"/>
+        <TextBlock x:Name="longitude" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Longitude_deg, StringFormat=Longitude: {0}}" VerticalAlignment="Top" Margin="10,43,0,0" Foreground="GhostWhite" Width="230" Height="37" FontSize="15" FontStyle="Italic"/>
     </Grid>
 </UserControl>

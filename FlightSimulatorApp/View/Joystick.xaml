@@ -24,13 +24,13 @@
                     </RadialGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
-            <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" Canvas.Left="147.875" Canvas.Top="37.625" />
-            <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="147.875" Canvas.Top="284.125">
+            <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="GhostWhite" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" Canvas.Left="147.875" Canvas.Top="37.625" />
+            <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="GhostWhite" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="147.875" Canvas.Top="284.125">
                 <Path.RenderTransform>
                     <ScaleTransform ScaleY="-1" />
                 </Path.RenderTransform>
             </Path>
-            <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="270.875" Canvas.Top="162.125">
+            <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="GhostWhite" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="270.875" Canvas.Top="162.125">
                 <Path.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="-1" ScaleX="-1" />
@@ -38,7 +38,7 @@
                     </TransformGroup>
                 </Path.RenderTransform>
             </Path>
-            <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z"  Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="24.375" Canvas.Top="163.625">
+            <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z"  Fill="GhostWhite" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="24.375" Canvas.Top="163.625">
                 <Path.RenderTransform>
                     <TransformGroup>
                         <RotateTransform Angle="90" />
@@ -52,16 +52,16 @@
                 <Ellipse x:Name="KnobBase" HorizontalAlignment="Left" Height="90" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.5,0.5" Canvas.Top="1">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
-                            <GradientStop Color="#FF8A8A8A" />
-                            <GradientStop Color="#FF979797" Offset="1" />
+                            <GradientStop Color="DodgerBlue" />
+                            <GradientStop Color="DodgerBlue" Offset="1" />
                         </RadialGradientBrush>
                     </Ellipse.Fill>
                 </Ellipse>
                 <Ellipse HorizontalAlignment="Left" Height="74.313" VerticalAlignment="Top" Width="82.189" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Canvas.Left="0.613" Canvas.Top="1.692">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
-                            <GradientStop Color="#C0828080" Offset="0.797" />
-                            <GradientStop Color="#FD000000" />
+                            <GradientStop Color="DodgerBlue" Offset="0.797" />
+                            <GradientStop Color="DodgerBlue" />
                         </RadialGradientBrush>
                     </Ellipse.Fill>
                     <Ellipse.RenderTransform>
@@ -75,9 +75,9 @@
                 <Ellipse HorizontalAlignment="Left" Height="75.491"  VerticalAlignment="Top" Width="70.887" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Canvas.Left="12.396" Canvas.Top="5.057">
                     <Ellipse.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#00858585" Offset="0" />
-                            <GradientStop Color="#1AFFFFFF" Offset="1" />
-                            <GradientStop Color="#3FC2C2C2" Offset="0.349" />
+                            <GradientStop Color="DodgerBlue" Offset="0" />
+                            <GradientStop Color="DodgerBlue" Offset="1" />
+                            <GradientStop Color="DodgerBlue" Offset="0.349" />
                         </LinearGradientBrush>
                     </Ellipse.Fill>
                     <Ellipse.RenderTransform>
@@ -90,8 +90,8 @@
                 <Ellipse HorizontalAlignment="Left" Height="72.722" VerticalAlignment="Top" Width="72.936" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Canvas.Left="0.631" Canvas.Top="4.896">
                     <Ellipse.Fill>
                         <RadialGradientBrush>
-                            <GradientStop Color="#9A909090" Offset="1" />
-                            <GradientStop Color="Gray" />
+                            <GradientStop Color="DodgerBlue" Offset="1" />
+                            <GradientStop Color="DodgerBlue" />
                         </RadialGradientBrush>
                     </Ellipse.Fill>
                     <Ellipse.RenderTransform>
@@ -104,9 +104,9 @@
                     </Ellipse.RenderTransform>
                     <Ellipse.Fill>
                         <RadialGradientBrush>
-                            <GradientStop Color="#FF898989" Offset="0" />
-                            <GradientStop Color="#38777777" Offset="1" />
-                            <GradientStop Color="#55676767" Offset="0.672" />
+                            <GradientStop Color="DodgerBlue" Offset="0" />
+                            <GradientStop Color="DodgerBlue" Offset="1" />
+                            <GradientStop Color="DodgerBlue" Offset="0.672" />
                         </RadialGradientBrush>
                     </Ellipse.Fill>
                 </Ellipse>

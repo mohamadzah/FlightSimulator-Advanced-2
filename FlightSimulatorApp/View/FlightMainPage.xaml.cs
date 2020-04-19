@@ -23,13 +23,13 @@ namespace FlightSimulatorApp.View
     {
         private IModel ml;
 
-        //Constructor.
         public FlightMainPage(IModel _ml)
         {
             this.ml = _ml;
             InitializeComponent();
         }
-        //Disconnect from the application and go back to home page.
+
+        //Disconnect from the application and go back to main
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
         {
             ml.disconnect();
@@ -37,5 +37,6 @@ namespace FlightSimulatorApp.View
             main.Show();
             Close();
         }
+
     }
 }

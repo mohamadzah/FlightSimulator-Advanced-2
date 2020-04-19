@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="FlightSimulatorApp.View.Controls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlightSimulatorApp.View"
+             mc:Ignorable="d" Height="834" Width="1644">
+    <Grid Margin="0,0,-2,-4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="119*"/>
+        </Grid.RowDefinitions>
+        <Viewbox Margin="28,22,423,30" Grid.Row="1" Stretch="Fill">
+            <Grid Height="474" Width="819">
+
+                <Slider x:Name="throttleSlider" HorizontalAlignment="Left" VerticalAlignment="Center" Minimum="0" Maximum="1" TickFrequency="0.1" ValueChanged="throttleSlider_ValueChanged" Height="304" Margin="171,72,0,98"
+                    TickPlacement="Both" Orientation="Vertical" Width="82" Foreground="DeepSkyBlue" Value="{Binding VM_Throttle}"/>
+
+                <Slider x:Name="aileronSlider" HorizontalAlignment="Left" VerticalAlignment="Top" Minimum="-1" Maximum="1" TickFrequency="0.1" ValueChanged="aileronSlider_ValueChanged" Height="34" Margin="203,407,0,0"
+                    TickPlacement="Both" Orientation="Horizontal" Width="413" Foreground="DeepSkyBlue" Value="{Binding VM_Aileron}"/>
+
+                <TextBlock x:Name="aileronText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Aileron, StringFormat=0.0#}" VerticalAlignment="Top" Margin="399,448,0,0" Width="153" FontSize="20" Height="26" Foreground="GhostWhite"/>
+
+                <TextBlock x:Name="rudderText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Rudder, StringFormat=0.0#}" VerticalAlignment="Top" Margin="399,1,0,0" Width="153" FontSize="20" Height="25" Foreground="GhostWhite"/>
+
+                <TextBlock x:Name="throttleText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Throttle, StringFormat=0.0#}" VerticalAlignment="Top" Margin="136,215,0,0" Width="79" FontSize="20" Height="41" Foreground="GhostWhite"/>
+
+                <TextBlock x:Name="elevatorText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding VM_Elevator, StringFormat=0.0#}" VerticalAlignment="Top" Margin="614,215,0,0" Width="71" FontSize="20" Height="41" Foreground="GhostWhite"/>
+
+                <local:Joystick x:Name="joystick" RenderTransformOrigin="0.501,0.499" Margin="0,0,0,57" Rudder="{Binding VM_Rudder, Mode=TwoWay}" Elevator="{Binding VM_Elevator, Mode=TwoWay}"/>
+
+                <Label x:Name="rudderLabel" Content="🡰Rudder🡲" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="GhostWhite" Margin="469,0,0,0"/>
+
+                <Label x:Name="elevatorLabel" Content="🡰Elevator🡲" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="GhostWhite" Margin="555,92,0,0" RenderTransformOrigin="0.5,0.5" Background="Transparent">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                
+                <Label x:Name="aileronLabel" Content="🡰Aileron🡲" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="Orange" Margin="202,439,0,-2"/>
+                
+                <Label x:Name="throttleLabel" Content="🡰Throttle🡲" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Foreground="Orange" Margin="81,303,0,0" RenderTransformOrigin="0.629,1.005">
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform X="3.205" Y="-34.165"/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+
+            </Grid>
+        </Viewbox>
+
+    </Grid>
+</UserControl>

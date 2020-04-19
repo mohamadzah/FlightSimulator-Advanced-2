@@ -10,7 +10,7 @@ namespace FlightSimulatorApp.Model
 {
     //MyTelnetClient that implements Itelnetclient interface.
     class MyTelnetClient : ITelnetClient {
-        private TcpClient tcp;
+        private TcpClient tcpClient;
         private NetworkStream stream;
         private Mutex mutex = new Mutex();
         
@@ -18,13 +18,12 @@ namespace FlightSimulatorApp.Model
         public void connect(string ip, int port)
         {
             //Initialize the tcpClient.
-            this.tcp = new TcpClient();
+            this.tcpClient = new TcpClient();
             //Try to establish a connection to the server.
             try
             {
-                tcp.Connect(ip, port);
-                stream = tcp.GetStream();
-                stream.ReadTimeout = 10000;
+                tcpClient.Connect(ip, port);
+                stream = tcpClient.GetStream();
             }
             //Catch an exception in case establishing doesn't work.
             catch(Exception)
@@ -32,6 +31,7 @@ namespace FlightSimulatorApp.Model
                 Console.WriteLine("Could not connect!");
             }
         }
+
         //Send a message to the server.
         public void write(string command)
         {
@@ -39,25 +39,29 @@ namespace FlightSimulatorApp.Model
             //try to send the message to the server.
             try
             {
-                stream.Write(encodedMsg, 0, encodedMsg.Length);
+                tcpClient.ReceiveTimeout = 10000;
+                tcpClient.GetStream().Write(encodedMsg, 0, encodedMsg.Length);
             }
+
             catch
             {
                 Console.WriteLine();
             }
         }
+
         //Read back from the server.
         public string read()
         {
             Byte[] sentBack = new Byte[256];
-            int len = stream.Read(sentBack, 0, sentBack.Length);
+            int len = tcpClient.GetStream().Read(sentBack, 0, sentBack.Length);
             string message = Encoding.ASCII.GetString(sentBack, 0, len);
             return message;
         }
+
         //Close the established connection
         public void disconnect()
         {
-            tcp.Client.Close(); //disconnect from the server.
+            tcpClient.Client.Close(); //disconnect from the server.
             Console.WriteLine("Disconnected!");
         }
     }

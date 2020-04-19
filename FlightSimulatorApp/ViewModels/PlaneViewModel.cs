@@ -24,6 +24,7 @@ namespace FlightSimulatorApp.ViewModels
                 NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
+
         //INotifyPropertyChanged implementation.
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -34,6 +35,7 @@ namespace FlightSimulatorApp.ViewModels
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
+
         //Get properties.
         public double VM_Longitude_deg { get { return model.Longitude_deg; } }
 
