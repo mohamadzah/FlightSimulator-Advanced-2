@@ -8,4 +8,7 @@ Once a Data is updated, the *ViewModel* is responsibile for processing such data
 
 **_Design_**: In this project we have a home screen and a main screen, 
 - *Home screen*: In the home screen the user is presented with two buttons, a connect button that connects to either the default IP and Port given by the program, or a custom input by the user. And an exit button which closes the program.
+  ![github picture](https://github.com/user-attachments/assets/7433465b-6323-4cf1-8f72-d937d24d9614)
 - *Main activity screen*: In the main screen on the left side we have a Bing Map which we use to show the location of the flight, at the top left side we have the latitude and longitude coordinates of the flight, to the right we have a list of more data that is relevant to the flight such as it's airspeed, ground speed, altitude etc. And the main part is the two sliders and the Joystick which are used to control and adjust the flight's course ׁׁׂׂ(The Joystick xaml was imported and was not developed by me, as per the instructions of the class teacher at the time)
+  
+![Github picture README](https://github.com/user-attachments/assets/8854dc6a-f084-48b5-84aa-e30dc3fae9ed)
