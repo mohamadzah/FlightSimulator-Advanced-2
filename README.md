@@ -1,5 +1,5 @@
 # FlightSimulator
-FlightSimulator is a project that i created while attending the Advanced Programming 2 class at Bar-Ilan University
+FlightSimulator is a project that I created while attending the Advanced Programming 2 class at Bar-Ilan University
 ## Description:
 In this project, we developed a WPF application that uses the MVVM architecture, and implements a TCP Client which sends and receives data from FlightGear
 By using the MVVM architecture, we were able to develop the app into three different sections.
